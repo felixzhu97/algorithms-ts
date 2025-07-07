@@ -4,6 +4,11 @@
 export type CompareFn<T> = (a: T, b: T) => number;
 
 /**
+ * 比较器类型（兼容别名）
+ */
+export type Comparator<T> = CompareFn<T>;
+
+/**
  * 默认数字比较函数
  */
 export const defaultCompare: CompareFn<number> = (a, b) => a - b;
@@ -20,6 +25,15 @@ export interface Edge {
   from: number;
   to: number;
   weight?: number;
+}
+
+/**
+ * 加权边表示
+ */
+export interface WeightedEdge extends Edge {
+  from: number;
+  to: number;
+  weight: number;
 }
 
 /**

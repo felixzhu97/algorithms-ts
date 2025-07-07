@@ -3,13 +3,13 @@
  * 展示《算法导论》第22章图的基本算法
  */
 
-import { AlgorithmDemo } from "./index";
+import { DemoManager } from "./demo-manager";
 
 function main() {
   console.log("🚀 《算法导论》图算法演示\n");
 
   // 演示图算法
-  AlgorithmDemo.demonstrateGraphAlgorithms();
+  DemoManager.runSpecificDemo("greedy");
 
   console.log("\n✅ 图算法演示完成！");
 }
