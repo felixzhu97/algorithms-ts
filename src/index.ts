@@ -16,6 +16,7 @@ import {
 } from "./algorithms/sorting/quick-sort";
 import { heapSort } from "./algorithms/sorting/heap-sort";
 import { BinarySearchTree } from "./data-structures/trees/binary-search-tree";
+import { RedBlackTree } from "./data-structures/trees/red-black-tree";
 import {
   ChainingHashTable,
   OpenAddressingHashTable,
@@ -40,6 +41,10 @@ export {
   BSTNode,
   BinarySearchTree,
 } from "./data-structures/trees/binary-search-tree";
+export {
+  RBTreeNode,
+  RedBlackTree,
+} from "./data-structures/trees/red-black-tree";
 export {
   ChainingHashTable,
   OpenAddressingHashTable,
@@ -295,5 +300,26 @@ export class AlgorithmDemo {
     console.log(
       `聚类信息: 最大簇大小=${stats.clusteringInfo.maxClusterSize}, 总簇数=${stats.clusteringInfo.totalClusters}\n`
     );
+
+    // 红黑树演示
+    console.log("--- 红黑树 (Red-Black Tree) ---");
+    const rbt = new RedBlackTree<number>();
+    [50, 30, 70, 20, 40, 60, 80, 10, 25, 35, 45].forEach((item) =>
+      rbt.insert(item)
+    );
+    console.log(`红黑树大小: ${rbt.getSize()}`);
+    console.log(`中序遍历 (排序序列): [${rbt.inorderTraversal().join(", ")}]`);
+    console.log(`前序遍历: [${rbt.preorderTraversal().join(", ")}]`);
+    console.log(`层序遍历: [${rbt.levelOrderTraversal().join(", ")}]`);
+    console.log(`搜索35: ${rbt.contains(35) ? "找到" : "未找到"}`);
+    console.log(`搜索100: ${rbt.contains(100) ? "找到" : "未找到"}`);
+    console.log(`最小值: ${rbt.min()}`);
+    console.log(`最大值: ${rbt.max()}`);
+    console.log(`树高度: ${rbt.height()}`);
+    console.log(`黑高度: ${rbt.blackHeight()}`);
+    console.log(`是否为有效红黑树: ${rbt.isValidRedBlackTree()}`);
+    rbt.delete(30);
+    console.log(`删除30后中序遍历: [${rbt.inorderTraversal().join(", ")}]`);
+    console.log(`删除后仍为有效红黑树: ${rbt.isValidRedBlackTree()}\n`);
   }
 }
