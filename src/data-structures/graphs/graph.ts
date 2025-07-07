@@ -416,6 +416,33 @@ export class Graph {
   }
 
   /**
+   * 从边列表创建图
+   * @param vertexCount 顶点数量
+   * @param edges 边列表
+   * @param isDirected 是否为有向图
+   * @param isWeighted 是否为加权图
+   * @returns 创建的图实例
+   */
+  static fromEdges(
+    vertexCount: number,
+    edges: Edge[],
+    isDirected: boolean = false,
+    isWeighted: boolean = false
+  ): Graph {
+    const graph = new Graph(vertexCount, isDirected, isWeighted);
+
+    for (const edge of edges) {
+      if (isWeighted && "weight" in edge) {
+        graph.addEdge(edge.from, edge.to, edge.weight);
+      } else {
+        graph.addEdge(edge.from, edge.to);
+      }
+    }
+
+    return graph;
+  }
+
+  /**
    * 转换为字符串表示
    */
   toString(): string {
@@ -423,5 +450,34 @@ export class Graph {
     return `Graph(${info.vertices}v, ${info.edges}e, ${
       info.isDirected ? "directed" : "undirected"
     }, ${info.isWeighted ? "weighted" : "unweighted"})`;
+  }
+
+  /**
+   * 转置图（反转所有边的方向）
+   * @returns 新的转置图
+   * @throws 如果图是无向图则抛出错误
+   */
+  transpose(): Graph {
+    if (!this.isDirected) {
+      throw new Error("转置操作只适用于有向图");
+    }
+
+    const transposed = new Graph(
+      this.vertices,
+      true,
+      this.isWeighted,
+      this.representation
+    );
+
+    const edges = this.getAllEdges();
+    for (const edge of edges) {
+      if ("weight" in edge) {
+        transposed.addEdge(edge.to, edge.from, edge.weight);
+      } else {
+        transposed.addEdge(edge.to, edge.from);
+      }
+    }
+
+    return transposed;
   }
 }

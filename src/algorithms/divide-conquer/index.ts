@@ -40,3 +40,30 @@ export {
   MatrixUtils,
   type LUDecomposition,
 } from "./matrix-operations";
+
+// 快速傅里叶变换
+export {
+  Complex,
+  Polynomial,
+  fft,
+  ifft,
+  polynomialMultiplyFFT,
+  polynomialMultiply,
+  bigIntegerMultiply,
+  convolution,
+  circularConvolution,
+  NumberTheoreticTransform,
+  FFTUtils,
+} from "./fft";
+
+// 计算几何学
+export {
+  Point2D,
+  LineSegment,
+  Polygon,
+  grahamScan,
+  jarvisMarch,
+  segmentsIntersect,
+  closestPair,
+  ComputationalGeometry,
+} from "./computational-geometry";

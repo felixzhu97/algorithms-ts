@@ -39,6 +39,21 @@ export {
   DisjointSetNode,
   DisjointSetApplications,
   DisjointSetUtils,
+  // 线段树
+  SegmentTree,
+  SegmentTreeUtils,
+  // 树状数组
+  BinaryIndexedTree,
+  BinaryIndexedTree2D,
+  DifferenceArrayBIT,
+  BinaryIndexedTreeUtils,
+  // 字典树
+  Trie,
+  TrieUtils,
+  // LRU缓存
+  LRUCache,
+  LRUCacheWithStats,
+  LRUCacheUtils,
 } from "./data-structures/advanced";
 
 // ==================== 算法导出 ====================
@@ -106,6 +121,27 @@ export {
   oneNorm,
   infinityNorm,
   MatrixUtils,
+  // 快速傅里叶变换
+  Complex,
+  Polynomial,
+  fft,
+  ifft,
+  polynomialMultiplyFFT,
+  polynomialMultiply,
+  bigIntegerMultiply,
+  convolution,
+  circularConvolution,
+  NumberTheoreticTransform,
+  FFTUtils,
+  // 计算几何学
+  Point2D,
+  LineSegment,
+  Polygon,
+  grahamScan,
+  jarvisMarch,
+  segmentsIntersect,
+  closestPair,
+  ComputationalGeometry,
 } from "./algorithms/divide-conquer";
 
 // 字符串算法

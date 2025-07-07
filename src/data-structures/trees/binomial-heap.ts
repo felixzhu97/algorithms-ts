@@ -142,7 +142,7 @@ export class BinomialHeap<T> {
     let minNode = this.head;
     let minPrev: BinomialNode<T> | null = null;
     let prev: BinomialNode<T> | null = null;
-    let current = this.head;
+    let current: BinomialNode<T> | null = this.head;
 
     while (current !== null) {
       if (this.compare(current.value, minNode.value) < 0) {
@@ -167,7 +167,7 @@ export class BinomialHeap<T> {
       newHeap.head = this.reverseNodeList(minNode.child);
 
       // 清除父指针
-      let child = newHeap.head;
+      let child: BinomialNode<T> | null = newHeap.head;
       while (child !== null) {
         child.parent = null;
         child = child.sibling;
@@ -270,7 +270,7 @@ export class BinomialHeap<T> {
     }
 
     let prev: BinomialNode<T> | null = null;
-    let current = this.head;
+    let current: BinomialNode<T> | null = this.head;
     let next = current.sibling;
 
     while (next !== null) {
@@ -358,7 +358,7 @@ export class BinomialHeap<T> {
     let current: BinomialNode<T> | null = head;
 
     while (current !== null) {
-      const next = current.sibling;
+      const next: BinomialNode<T> | null = current.sibling;
       current.sibling = prev;
       prev = current;
       current = next;
@@ -400,7 +400,7 @@ export class BinomialHeap<T> {
     }
 
     // 验证根列表按度数非递减排序
-    let current = this.head;
+    let current: BinomialNode<T> | null = this.head;
     let prevDegree = -1;
     const degrees: number[] = [];
 
@@ -578,7 +578,7 @@ export class BinomialHeap<T> {
       newNode.child = this.cloneNodeWithSiblings(node.child);
 
       // 设置父指针
-      let child = newNode.child;
+      let child: BinomialNode<T> | null = newNode.child;
       while (child !== null) {
         child.parent = newNode;
         child = child.sibling;
@@ -618,7 +618,7 @@ export class BinomialHeap<T> {
     console.log(`大小: ${this.size}`);
     console.log(`度数列表: [${this.getDegrees().join(", ")}]`);
 
-    let current = this.head;
+    let current: BinomialNode<T> | null = this.head;
     let treeIndex = 0;
 
     while (current !== null) {
@@ -636,7 +636,7 @@ export class BinomialHeap<T> {
     const indent = "  ".repeat(level);
     console.log(`${indent}${node.value} (度数: ${node.degree})`);
 
-    let child = node.child;
+    let child: BinomialNode<T> | null = node.child;
     while (child !== null) {
       this.printTree(child, level + 1);
       child = child.sibling;
