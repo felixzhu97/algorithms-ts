@@ -15,6 +15,11 @@ import {
   threeWayQuickSort,
 } from "./algorithms/sorting/quick-sort";
 import { heapSort } from "./algorithms/sorting/heap-sort";
+import { BinarySearchTree } from "./data-structures/trees/binary-search-tree";
+import {
+  ChainingHashTable,
+  OpenAddressingHashTable,
+} from "./data-structures/basic/hash-table";
 
 // 数据结构导出
 export { Stack } from "./data-structures/basic/stack";
@@ -31,6 +36,20 @@ export {
   MinHeap,
   PriorityQueue,
 } from "./data-structures/trees/heap";
+export {
+  BSTNode,
+  BinarySearchTree,
+} from "./data-structures/trees/binary-search-tree";
+export {
+  ChainingHashTable,
+  OpenAddressingHashTable,
+  PerfectHashTable,
+  ProbingStrategy,
+  HashTableUtils,
+  defaultStringHash,
+  defaultNumberHash,
+  defaultObjectHash,
+} from "./data-structures/basic/hash-table";
 
 // 排序算法
 export {
@@ -224,5 +243,57 @@ export class AlgorithmDemo {
     console.log(`删除20后: ${list.toString()}`);
     list.reverse();
     console.log(`反转后: ${list.toString()}\n`);
+
+    // 二叉搜索树演示
+    console.log("--- 二叉搜索树 (Binary Search Tree) ---");
+    const bst = new BinarySearchTree<number>();
+    [50, 30, 70, 20, 40, 60, 80].forEach((item) => bst.insert(item));
+    console.log(`BST大小: ${bst.size()}`);
+    console.log(`中序遍历 (排序序列): [${bst.inorderTraversal().join(", ")}]`);
+    console.log(`前序遍历: [${bst.preorderTraversal().join(", ")}]`);
+    console.log(`层序遍历: [${bst.levelOrderTraversal().join(", ")}]`);
+    console.log(`搜索40: ${bst.contains(40) ? "找到" : "未找到"}`);
+    console.log(`搜索100: ${bst.contains(100) ? "找到" : "未找到"}`);
+    console.log(`最小值: ${bst.minimum().value}`);
+    console.log(`最大值: ${bst.maximum().value}`);
+    bst.delete(30);
+    console.log(`删除30后中序遍历: [${bst.inorderTraversal().join(", ")}]`);
+    console.log(`树高度: ${bst.height()}`);
+    console.log(`是否为有效BST: ${bst.isValidBST()}\n`);
+
+    // 哈希表演示
+    console.log("--- 哈希表 (Hash Table) ---");
+
+    // 链地址法哈希表
+    console.log("链地址法哈希表:");
+    const chainingHT = new ChainingHashTable<string, number>();
+    ["apple", "banana", "cherry", "date", "elderberry"].forEach(
+      (fruit, index) => {
+        chainingHT.set(fruit, index + 1);
+      }
+    );
+    console.log(`大小: ${chainingHT.getSize()}`);
+    console.log(`负载因子: ${chainingHT.getLoadFactor().toFixed(2)}`);
+    console.log(`查找 'banana': ${chainingHT.get("banana")}`);
+    console.log(`包含 'fig': ${chainingHT.has("fig")}`);
+    console.log(`所有键: [${chainingHT.keys().join(", ")}]`);
+    chainingHT.delete("cherry");
+    console.log(`删除 'cherry' 后的键: [${chainingHT.keys().join(", ")}]\n`);
+
+    // 开放地址法哈希表
+    console.log("开放地址法哈希表 (线性探测):");
+    const openHT = new OpenAddressingHashTable<string, number>();
+    ["red", "green", "blue", "yellow", "purple"].forEach((color, index) => {
+      openHT.set(color, index + 1);
+    });
+    console.log(`大小: ${openHT.getSize()}`);
+    console.log(`负载因子: ${openHT.getLoadFactor().toFixed(2)}`);
+    console.log(`查找 'blue': ${openHT.get("blue")}`);
+    console.log(`包含 'orange': ${openHT.has("orange")}`);
+    console.log(`所有键: [${openHT.keys().join(", ")}]`);
+    const stats = openHT.getStats();
+    console.log(
+      `聚类信息: 最大簇大小=${stats.clusteringInfo.maxClusterSize}, 总簇数=${stats.clusteringInfo.totalClusters}\n`
+    );
   }
 }

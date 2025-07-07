@@ -68,9 +68,9 @@ export interface SearchResult {
  */
 export interface TreeNode<T> {
   value: T;
-  left?: TreeNode<T>;
-  right?: TreeNode<T>;
-  parent?: TreeNode<T>;
+  left: TreeNode<T> | null;
+  right: TreeNode<T> | null;
+  parent: TreeNode<T> | null;
 }
 
 /**
@@ -86,7 +86,7 @@ export enum RBColor {
  */
 export interface RBTreeNode<T> extends TreeNode<T> {
   color: RBColor;
-  left?: RBTreeNode<T>;
-  right?: RBTreeNode<T>;
-  parent?: RBTreeNode<T>;
+  left: RBTreeNode<T> | null;
+  right: RBTreeNode<T> | null;
+  parent: RBTreeNode<T> | null;
 }
