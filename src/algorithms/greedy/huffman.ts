@@ -3,8 +3,8 @@
  * 《算法导论》第16章 贪心算法
  */
 
-import { Heap } from "../../../data-structures/trees/heap";
-import { HuffmanNode, HuffmanResult } from "../../../types";
+import { Heap } from "../../data-structures/trees/heap";
+import { HuffmanNode, HuffmanResult } from "../../types";
 
 /**
  * 霍夫曼编码

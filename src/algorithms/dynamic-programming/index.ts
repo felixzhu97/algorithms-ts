@@ -4,12 +4,8 @@
  */
 
 // 经典动态规划问题
-export { matrixChainMultiplication } from "./classic/matrix-chain";
-export {
-  knapsack01,
-  unboundedKnapsack,
-  canPartition,
-} from "./classic/knapsack";
+export { matrixChainMultiplication } from "./matrix-chain";
+export { knapsack01, unboundedKnapsack, canPartition } from "./knapsack";
 
 // 序列相关问题
 export {
@@ -17,14 +13,10 @@ export {
   longestIncreasingSubsequence,
   longestIncreasingSubsequenceOptimized,
   editDistance,
-} from "./sequence/lcs";
+} from "./lcs";
 
 // 优化问题
-export {
-  maxSubarraySum,
-  coinChange,
-  climbStairs,
-} from "./optimization/subarray-problems";
+export { maxSubarraySum, coinChange, climbStairs } from "./subarray-problems";
 
 // 演示类
 export { DynamicProgrammingAlgorithms } from "./demo";

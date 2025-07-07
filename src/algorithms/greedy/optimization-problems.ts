@@ -3,7 +3,7 @@
  * 《算法导论》第16章 贪心算法
  */
 
-import { KnapsackItem } from "../../../types";
+import { KnapsackItem } from "../../types";
 
 /**
  * 分数背包问题

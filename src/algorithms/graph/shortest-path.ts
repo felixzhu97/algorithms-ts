@@ -10,7 +10,7 @@
  */
 
 import { Heap } from "../../data-structures/trees/heap";
-import { Graph } from "./graph-algorithms";
+import { Graph } from "../../data-structures/graphs";
 import {
   ShortestPathResult,
   AllPairsShortestPathResult,

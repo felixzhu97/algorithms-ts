@@ -248,6 +248,34 @@ export class Graph {
   }
 
   /**
+   * 兼容性方法 - 获取顶点数
+   */
+  getVertices(): number {
+    return this.getVertexCount();
+  }
+
+  /**
+   * 兼容性方法 - 获取是否为有向图
+   */
+  getIsDirected(): boolean {
+    return this.isDirected;
+  }
+
+  /**
+   * 兼容性方法 - 获取是否为加权图
+   */
+  getIsWeighted(): boolean {
+    return this.isWeighted;
+  }
+
+  /**
+   * 兼容性方法 - 获取所有边
+   */
+  getEdges(): Edge[] | WeightedEdge[] {
+    return this.getAllEdges();
+  }
+
+  /**
    * 获取所有边
    */
   getAllEdges(): Edge[] | WeightedEdge[] {

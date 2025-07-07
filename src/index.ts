@@ -36,9 +36,69 @@ export {
   bucketSort,
 } from "./algorithms/sorting";
 
+// 搜索算法
+export {
+  binarySearch,
+  binarySearchRecursive,
+  lowerBound,
+  upperBound,
+  searchInRotatedArray,
+  linearSearch,
+  linearSearchSentinel,
+  findAllOccurrences,
+  findMaximum,
+  findMinimum,
+  linearSearchWithComparator,
+} from "./algorithms/searching";
+
+// 分治算法
+export {
+  MaxSubarrayResult,
+  findMaximumSubarray,
+  findMaximumSubarrayKadane,
+  fastPowerRecursive,
+  fastPowerIterative,
+  fastPowerBinary,
+  Matrix,
+  matrixFastPower,
+  fibonacciFastPower,
+} from "./algorithms/divide-conquer";
+
+// 字符串算法
+export {
+  naiveStringMatching,
+  rabinKarpMatching,
+  kmpMatching,
+  boyerMooreMatching,
+  EditDistanceResult,
+  editDistance,
+  editDistanceOptimized,
+  editDistanceInsertDelete,
+  longestCommonSubsequenceLength,
+  editDistanceUsingLCS,
+} from "./algorithms/string";
+
+// 数论算法
+export {
+  gcd,
+  gcdRecursive,
+  ExtendedGCDResult,
+  extendedGCD,
+  lcm,
+  modularInverse,
+  modularExponentiation,
+  isPrimeTrial,
+  sieveOfEratosthenes,
+  millerRabinTest,
+  eulerTotient,
+  chineseRemainderTheorem,
+} from "./algorithms/number-theory";
+
+// 图结构
+export { Graph } from "./data-structures/graphs";
+
 // 图算法
 export {
-  Graph,
   breadthFirstSearch,
   depthFirstSearch,
   topologicalSort,
@@ -74,7 +134,6 @@ export {
   longestCommonSubsequence,
   longestIncreasingSubsequence,
   longestIncreasingSubsequenceOptimized,
-  editDistance,
 
   // 优化问题
   maxSubarraySum,

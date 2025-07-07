@@ -3,7 +3,7 @@
  * 《算法导论》第15章 动态规划
  */
 
-import { LCSResult } from "../../../types";
+import { LCSResult } from "../../types";
 
 /**
  * 最长公共子序列（LCS）

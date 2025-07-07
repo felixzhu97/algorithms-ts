@@ -4,7 +4,6 @@
  */
 
 import {
-  Graph,
   breadthFirstSearch,
   depthFirstSearch,
   topologicalSort,
@@ -13,6 +12,7 @@ import {
   getPath,
   GraphAlgorithms,
 } from "../algorithms/graph/graph-algorithms";
+import { Graph } from "../data-structures/graphs";
 import { Color, Edge } from "../types";
 
 describe("图数据结构 (Graph)", () => {

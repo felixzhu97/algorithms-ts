@@ -3,7 +3,7 @@
  * 《算法导论》第15章 动态规划
  */
 
-import { MatrixChainResult } from "../../../types";
+import { MatrixChainResult } from "../../types";
 
 /**
  * 矩阵链乘法

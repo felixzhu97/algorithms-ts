@@ -2,19 +2,15 @@
  * 动态规划算法演示类
  */
 
-import { matrixChainMultiplication } from "./classic/matrix-chain";
-import { knapsack01, canPartition } from "./classic/knapsack";
+import { matrixChainMultiplication } from "./matrix-chain";
+import { knapsack01, canPartition } from "./knapsack";
 import {
   longestCommonSubsequence,
   longestIncreasingSubsequence,
   longestIncreasingSubsequenceOptimized,
   editDistance,
-} from "./sequence/lcs";
-import {
-  maxSubarraySum,
-  coinChange,
-  climbStairs,
-} from "./optimization/subarray-problems";
+} from "./lcs";
+import { maxSubarraySum, coinChange, climbStairs } from "./subarray-problems";
 import { KnapsackItem } from "../../types";
 
 /**

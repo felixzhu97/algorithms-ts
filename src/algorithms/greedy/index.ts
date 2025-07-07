@@ -11,10 +11,10 @@ export {
   intervalCover,
   type Task,
   type Interval,
-} from "./scheduling/activity-selection";
+} from "./activity-selection";
 
 // 压缩算法
-export { huffmanCoding, huffmanDecoding } from "./compression/huffman";
+export { huffmanCoding, huffmanDecoding } from "./huffman";
 
 // 优化问题
 export {
@@ -25,7 +25,7 @@ export {
   canAttendMeetings,
   minMeetingRooms,
   type Meeting,
-} from "./optimization/optimization-problems";
+} from "./optimization-problems";
 
 // 演示类
 export { GreedyAlgorithms } from "./demo";

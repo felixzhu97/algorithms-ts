@@ -3,7 +3,7 @@
  * 《算法导论》第15章 动态规划
  */
 
-import { KnapsackResult, KnapsackItem } from "../../../types";
+import { KnapsackResult, KnapsackItem } from "../../types";
 
 /**
  * 0-1背包问题

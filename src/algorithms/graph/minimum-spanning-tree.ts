@@ -8,8 +8,8 @@
  */
 
 import { Heap } from "../../data-structures/trees/heap";
-import { Graph } from "./graph-algorithms";
-import { MSTResult, MSTEdge, UnionFind, Edge } from "../../types";
+import { Graph } from "../../data-structures/graphs";
+import { MSTResult, MSTEdge, UnionFind, Edge, WeightedEdge } from "../../types";
 
 /**
  * 并查集实现
@@ -96,10 +96,10 @@ export function kruskal(graph: Graph): MSTResult {
   const edges = graph.getEdges();
 
   // 按权重排序所有边
-  const sortedEdges = edges
-    .filter((edge) => edge.weight !== undefined)
-    .map((edge) => ({ ...edge, weight: edge.weight! }))
-    .sort((a, b) => a.weight - b.weight);
+  const sortedEdges = (edges as WeightedEdge[])
+    .filter((edge: WeightedEdge) => edge.weight !== undefined)
+    .map((edge: WeightedEdge) => ({ ...edge, weight: edge.weight! }))
+    .sort((a: WeightedEdge, b: WeightedEdge) => a.weight - b.weight);
 
   const mstEdges: MSTEdge[] = [];
   const unionFind = new UnionFindSet(vertices);

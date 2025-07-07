@@ -8,8 +8,8 @@ import {
   intervalCover,
   Task,
   Interval,
-} from "./scheduling/activity-selection";
-import { huffmanCoding, huffmanDecoding } from "./compression/huffman";
+} from "./activity-selection";
+import { huffmanCoding, huffmanDecoding } from "./huffman";
 import {
   fractionalKnapsack,
   canJump,
@@ -18,7 +18,7 @@ import {
   canAttendMeetings,
   minMeetingRooms,
   Meeting,
-} from "./optimization/optimization-problems";
+} from "./optimization-problems";
 import { Activity, KnapsackItem } from "../../types";
 
 /**

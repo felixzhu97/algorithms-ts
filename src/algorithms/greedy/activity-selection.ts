@@ -3,7 +3,7 @@
  * 《算法导论》第16章 贪心算法
  */
 
-import { Activity, ActivitySelectionResult } from "../../../types";
+import { Activity, ActivitySelectionResult } from "../../types";
 
 /**
  * 活动选择问题
