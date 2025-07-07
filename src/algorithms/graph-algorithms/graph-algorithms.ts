@@ -12,7 +12,6 @@
 import {
   AdjacencyList,
   WeightedAdjacencyList,
-  Edge,
   Color,
   Vertex,
   BFSResult,
@@ -20,305 +19,7 @@ import {
   TopologicalSortResult,
   SCCResult,
 } from "../../types";
-
-/**
- * 图类
- * 支持有向图和无向图，可以使用邻接表或邻接矩阵表示
- */
-export class Graph {
-  private vertices: number;
-  private adjacencyList: AdjacencyList;
-  private isDirected: boolean;
-  private isWeighted: boolean;
-  private weightedAdjacencyList: WeightedAdjacencyList;
-
-  constructor(
-    vertices: number,
-    isDirected: boolean = false,
-    isWeighted: boolean = false
-  ) {
-    this.vertices = vertices;
-    this.isDirected = isDirected;
-    this.isWeighted = isWeighted;
-    this.adjacencyList = Array.from({ length: vertices }, () => []);
-    this.weightedAdjacencyList = Array.from({ length: vertices }, () => []);
-  }
-
-  /**
-   * 获取顶点数
-   */
-  getVertices(): number {
-    return this.vertices;
-  }
-
-  /**
-   * 检查是否为有向图
-   */
-  getIsDirected(): boolean {
-    return this.isDirected;
-  }
-
-  /**
-   * 检查是否为加权图
-   */
-  getIsWeighted(): boolean {
-    return this.isWeighted;
-  }
-
-  /**
-   * 添加边
-   */
-  addEdge(from: number, to: number, weight: number = 1): void {
-    this.validateVertex(from);
-    this.validateVertex(to);
-
-    if (this.isWeighted) {
-      this.weightedAdjacencyList[from].push({ vertex: to, weight });
-      if (!this.isDirected) {
-        this.weightedAdjacencyList[to].push({ vertex: from, weight });
-      }
-    } else {
-      this.adjacencyList[from].push(to);
-      if (!this.isDirected) {
-        this.adjacencyList[to].push(from);
-      }
-    }
-  }
-
-  /**
-   * 移除边
-   */
-  removeEdge(from: number, to: number): void {
-    this.validateVertex(from);
-    this.validateVertex(to);
-
-    if (this.isWeighted) {
-      this.weightedAdjacencyList[from] = this.weightedAdjacencyList[
-        from
-      ].filter((edge) => edge.vertex !== to);
-      if (!this.isDirected) {
-        this.weightedAdjacencyList[to] = this.weightedAdjacencyList[to].filter(
-          (edge) => edge.vertex !== from
-        );
-      }
-    } else {
-      this.adjacencyList[from] = this.adjacencyList[from].filter(
-        (vertex) => vertex !== to
-      );
-      if (!this.isDirected) {
-        this.adjacencyList[to] = this.adjacencyList[to].filter(
-          (vertex) => vertex !== from
-        );
-      }
-    }
-  }
-
-  /**
-   * 检查是否存在边
-   */
-  hasEdge(from: number, to: number): boolean {
-    this.validateVertex(from);
-    this.validateVertex(to);
-
-    if (this.isWeighted) {
-      return this.weightedAdjacencyList[from].some(
-        (edge) => edge.vertex === to
-      );
-    } else {
-      return this.adjacencyList[from].includes(to);
-    }
-  }
-
-  /**
-   * 获取邻接表
-   */
-  getAdjacencyList(): AdjacencyList {
-    return this.adjacencyList;
-  }
-
-  /**
-   * 获取加权邻接表
-   */
-  getWeightedAdjacencyList(): WeightedAdjacencyList {
-    return this.weightedAdjacencyList;
-  }
-
-  /**
-   * 获取指定顶点的邻居
-   */
-  getNeighbors(vertex: number): number[] {
-    this.validateVertex(vertex);
-
-    if (this.isWeighted) {
-      return this.weightedAdjacencyList[vertex].map((edge) => edge.vertex);
-    } else {
-      return [...this.adjacencyList[vertex]];
-    }
-  }
-
-  /**
-   * 获取指定顶点的加权邻居
-   */
-  getWeightedNeighbors(
-    vertex: number
-  ): Array<{ vertex: number; weight: number }> {
-    this.validateVertex(vertex);
-
-    if (!this.isWeighted) {
-      return this.adjacencyList[vertex].map((v) => ({ vertex: v, weight: 1 }));
-    }
-
-    return [...this.weightedAdjacencyList[vertex]];
-  }
-
-  /**
-   * 获取边的权重
-   */
-  getEdgeWeight(from: number, to: number): number | null {
-    this.validateVertex(from);
-    this.validateVertex(to);
-
-    if (this.isWeighted) {
-      const edge = this.weightedAdjacencyList[from].find(
-        (e) => e.vertex === to
-      );
-      return edge ? edge.weight : null;
-    } else {
-      return this.hasEdge(from, to) ? 1 : null;
-    }
-  }
-
-  /**
-   * 获取边数
-   */
-  getEdgeCount(): number {
-    let count = 0;
-
-    if (this.isWeighted) {
-      for (let i = 0; i < this.vertices; i++) {
-        count += this.weightedAdjacencyList[i].length;
-      }
-    } else {
-      for (let i = 0; i < this.vertices; i++) {
-        count += this.adjacencyList[i].length;
-      }
-    }
-
-    return this.isDirected ? count : count / 2;
-  }
-
-  /**
-   * 获取所有边
-   */
-  getEdges(): Edge[] {
-    const edges: Edge[] = [];
-    const addedEdges = new Set<string>();
-
-    for (let from = 0; from < this.vertices; from++) {
-      if (this.isWeighted) {
-        for (const edge of this.weightedAdjacencyList[from]) {
-          const edgeKey = this.isDirected
-            ? `${from}->${edge.vertex}`
-            : `${Math.min(from, edge.vertex)}-${Math.max(from, edge.vertex)}`;
-
-          if (!addedEdges.has(edgeKey)) {
-            edges.push({ from, to: edge.vertex, weight: edge.weight });
-            addedEdges.add(edgeKey);
-          }
-        }
-      } else {
-        for (const to of this.adjacencyList[from]) {
-          const edgeKey = this.isDirected
-            ? `${from}->${to}`
-            : `${Math.min(from, to)}-${Math.max(from, to)}`;
-
-          if (!addedEdges.has(edgeKey)) {
-            edges.push({ from, to, weight: 1 });
-            addedEdges.add(edgeKey);
-          }
-        }
-      }
-    }
-
-    return edges;
-  }
-
-  /**
-   * 验证顶点索引
-   */
-  private validateVertex(vertex: number): void {
-    if (vertex < 0 || vertex >= this.vertices) {
-      throw new Error(`顶点 ${vertex} 超出范围 [0, ${this.vertices - 1}]`);
-    }
-  }
-
-  /**
-   * 转置图（只对有向图有意义）
-   */
-  transpose(): Graph {
-    if (!this.isDirected) {
-      throw new Error("转置操作只适用于有向图");
-    }
-
-    const transposed = new Graph(this.vertices, true, this.isWeighted);
-
-    for (let from = 0; from < this.vertices; from++) {
-      if (this.isWeighted) {
-        for (const edge of this.weightedAdjacencyList[from]) {
-          transposed.addEdge(edge.vertex, from, edge.weight);
-        }
-      } else {
-        for (const to of this.adjacencyList[from]) {
-          transposed.addEdge(to, from);
-        }
-      }
-    }
-
-    return transposed;
-  }
-
-  /**
-   * 从边列表创建图
-   */
-  static fromEdges(
-    vertices: number,
-    edges: Edge[],
-    isDirected: boolean = false,
-    isWeighted: boolean = false
-  ): Graph {
-    const graph = new Graph(vertices, isDirected, isWeighted);
-
-    for (const edge of edges) {
-      graph.addEdge(edge.from, edge.to, edge.weight || 1);
-    }
-
-    return graph;
-  }
-
-  /**
-   * 打印图结构
-   */
-  printGraph(): void {
-    console.log(`图信息: ${this.vertices}个顶点, ${this.getEdgeCount()}条边`);
-    console.log(
-      `类型: ${this.isDirected ? "有向" : "无向"}图, ${
-        this.isWeighted ? "加权" : "无权"
-      }图`
-    );
-    console.log("邻接表:");
-
-    for (let i = 0; i < this.vertices; i++) {
-      if (this.isWeighted) {
-        const neighbors = this.weightedAdjacencyList[i]
-          .map((edge) => `${edge.vertex}(${edge.weight})`)
-          .join(", ");
-        console.log(`  ${i}: [${neighbors}]`);
-      } else {
-        console.log(`  ${i}: [${this.adjacencyList[i].join(", ")}]`);
-      }
-    }
-  }
-}
+import { Graph } from "../../data-structures/graphs";
 
 /**
  * 广度优先搜索（BFS）
@@ -326,7 +27,7 @@ export class Graph {
  * 空间复杂度：O(V)
  */
 export function breadthFirstSearch(graph: Graph, source: number): BFSResult {
-  const vertices = graph.getVertices();
+  const vertices = graph.getVertexCount();
 
   if (source < 0 || source >= vertices) {
     throw new Error(`源顶点 ${source} 超出范围`);
@@ -387,7 +88,7 @@ export function breadthFirstSearch(graph: Graph, source: number): BFSResult {
  * 空间复杂度：O(V)
  */
 export function depthFirstSearch(graph: Graph): DFSResult {
-  const vertices = graph.getVertices();
+  const vertices = graph.getVertexCount();
 
   // 初始化所有顶点
   const vertexStates: Vertex[] = Array.from({ length: vertices }, (_, i) => ({
@@ -449,11 +150,13 @@ export function depthFirstSearch(graph: Graph): DFSResult {
  * 空间复杂度：O(V)
  */
 export function topologicalSort(graph: Graph): TopologicalSortResult {
-  if (!graph.getIsDirected()) {
+  const graphInfo = graph.getInfo();
+
+  if (!graphInfo.isDirected) {
     throw new Error("拓扑排序只适用于有向图");
   }
 
-  const vertices = graph.getVertices();
+  const vertices = graph.getVertexCount();
   const vertexStates: Vertex[] = Array.from({ length: vertices }, (_, i) => ({
     id: i,
     color: Color.WHITE,
@@ -510,11 +213,13 @@ export function topologicalSort(graph: Graph): TopologicalSortResult {
  * 空间复杂度：O(V)
  */
 export function stronglyConnectedComponents(graph: Graph): SCCResult {
-  if (!graph.getIsDirected()) {
+  const graphInfo = graph.getInfo();
+
+  if (!graphInfo.isDirected) {
     throw new Error("强连通分量算法只适用于有向图");
   }
 
-  const vertices = graph.getVertices();
+  const vertices = graph.getVertexCount();
 
   // 第一步：对原图执行DFS，获取完成时间
   const dfsResult = depthFirstSearch(graph);
@@ -526,7 +231,7 @@ export function stronglyConnectedComponents(graph: Graph): SCCResult {
   ).sort((a, b) => dfsResult.finishTimes[b] - dfsResult.finishTimes[a]);
 
   // 第二步：对转置图按完成时间降序执行DFS
-  const transposedGraph = graph.transpose();
+  const transposedGraph = createTransposeGraph(graph);
   const vertexStates: Vertex[] = Array.from({ length: vertices }, (_, i) => ({
     id: i,
     color: Color.WHITE,
@@ -572,11 +277,39 @@ export function stronglyConnectedComponents(graph: Graph): SCCResult {
 }
 
 /**
+ * 创建转置图（只对有向图有意义）
+ */
+function createTransposeGraph(graph: Graph): Graph {
+  const graphInfo = graph.getInfo();
+
+  if (!graphInfo.isDirected) {
+    throw new Error("转置操作只适用于有向图");
+  }
+
+  const transposed = new Graph(
+    graph.getVertexCount(),
+    true,
+    graphInfo.isWeighted
+  );
+
+  const edges = graph.getAllEdges();
+  for (const edge of edges) {
+    if ("weight" in edge) {
+      transposed.addEdge(edge.to, edge.from, edge.weight);
+    } else {
+      transposed.addEdge(edge.to, edge.from);
+    }
+  }
+
+  return transposed;
+}
+
+/**
  * 检测有向图中的环
  * 时间复杂度：O(V + E)
  */
 export function hasCycle(graph: Graph): boolean {
-  const vertices = graph.getVertices();
+  const vertices = graph.getVertexCount();
   const colors = new Array(vertices).fill(Color.WHITE);
 
   function dfsVisit(u: number): boolean {
@@ -711,7 +444,8 @@ export class GraphAlgorithms {
     printDFSResult(dfsResult);
 
     // 拓扑排序演示（仅对有向图）
-    if (graph.getIsDirected()) {
+    const graphInfo = graph.getInfo();
+    if (graphInfo.isDirected) {
       const topoResult = topologicalSort(graph);
       printTopologicalSort(topoResult);
 
