@@ -21,6 +21,20 @@ import {
   ChainingHashTable,
   OpenAddressingHashTable,
 } from "./data-structures/basic/hash-table";
+import {
+  Graph,
+  breadthFirstSearch,
+  depthFirstSearch,
+  topologicalSort,
+  stronglyConnectedComponents,
+  hasCycle,
+  getPath,
+  printBFSResult,
+  printDFSResult,
+  printTopologicalSort,
+  printSCCResult,
+  GraphAlgorithms,
+} from "./algorithms/graph/graph-algorithms";
 
 // 数据结构导出
 export { Stack } from "./data-structures/basic/stack";
@@ -92,6 +106,22 @@ export {
   bucketSortInteger,
   radixSortString,
 } from "./algorithms/sorting/linear-sorts";
+
+// 图算法
+export {
+  Graph,
+  breadthFirstSearch,
+  depthFirstSearch,
+  topologicalSort,
+  stronglyConnectedComponents,
+  hasCycle,
+  getPath,
+  printBFSResult,
+  printDFSResult,
+  printTopologicalSort,
+  printSCCResult,
+  GraphAlgorithms,
+} from "./algorithms/graph/graph-algorithms";
 
 // 类型定义
 export * from "./types";
@@ -321,5 +351,101 @@ export class AlgorithmDemo {
     rbt.delete(30);
     console.log(`删除30后中序遍历: [${rbt.inorderTraversal().join(", ")}]`);
     console.log(`删除后仍为有效红黑树: ${rbt.isValidRedBlackTree()}\n`);
+  }
+
+  /**
+   * 演示图算法
+   */
+  static demonstrateGraphAlgorithms(): void {
+    console.log("\n=== 图算法演示 ===\n");
+
+    // 无向图演示
+    console.log("--- 无向图演示 ---");
+    const undirectedGraph = GraphAlgorithms.createExampleUndirectedGraph();
+    undirectedGraph.printGraph();
+
+    console.log("\nBFS从顶点0开始:");
+    const bfsResult = breadthFirstSearch(undirectedGraph, 0);
+    printBFSResult(bfsResult, 0);
+
+    console.log("\nDFS遍历:");
+    const dfsResult = depthFirstSearch(undirectedGraph);
+    printDFSResult(dfsResult);
+
+    // 有向无环图演示
+    console.log("\n--- 有向无环图（DAG）演示 ---");
+    const dag = GraphAlgorithms.createExampleDAG();
+    dag.printGraph();
+
+    const topoResult = topologicalSort(dag);
+    printTopologicalSort(topoResult);
+
+    // 强连通分量演示
+    console.log("\n--- 强连通分量演示 ---");
+    const sccGraph = GraphAlgorithms.createExampleSCCGraph();
+    sccGraph.printGraph();
+
+    const sccResult = stronglyConnectedComponents(sccGraph);
+    printSCCResult(sccResult);
+
+    // 路径查找演示
+    console.log("\n--- 路径查找演示 ---");
+    console.log("从顶点0到其他顶点的路径:");
+    for (let target = 1; target < undirectedGraph.getVertices(); target++) {
+      const path = getPath(bfsResult.parents, 0, target);
+      if (path.length > 0) {
+        console.log(`到顶点${target}: ${path.join(" -> ")}`);
+      } else {
+        console.log(`到顶点${target}: 无路径`);
+      }
+    }
+
+    // 性能测试
+    console.log("\n--- 图算法性能测试 ---");
+    this.performGraphPerformanceTest();
+  }
+
+  /**
+   * 图算法性能测试
+   */
+  private static performGraphPerformanceTest(): void {
+    const vertices = 1000;
+    const edges = 5000;
+
+    console.log(`创建随机图: ${vertices}个顶点, ${edges}条边`);
+
+    // 创建随机图
+    const randomGraph = new Graph(vertices, true);
+    for (let i = 0; i < edges; i++) {
+      const from = Math.floor(Math.random() * vertices);
+      const to = Math.floor(Math.random() * vertices);
+      if (from !== to && !randomGraph.hasEdge(from, to)) {
+        randomGraph.addEdge(from, to);
+      }
+    }
+
+    // 测试BFS性能
+    const { timeMs: bfsTime } = this.measureTime(() => {
+      breadthFirstSearch(randomGraph, 0);
+    });
+    console.log(`BFS耗时: ${bfsTime.toFixed(2)}ms`);
+
+    // 测试DFS性能
+    const { timeMs: dfsTime } = this.measureTime(() => {
+      depthFirstSearch(randomGraph);
+    });
+    console.log(`DFS耗时: ${dfsTime.toFixed(2)}ms`);
+
+    // 测试拓扑排序性能
+    const { timeMs: topoTime } = this.measureTime(() => {
+      topologicalSort(randomGraph);
+    });
+    console.log(`拓扑排序耗时: ${topoTime.toFixed(2)}ms`);
+
+    // 测试强连通分量性能
+    const { timeMs: sccTime } = this.measureTime(() => {
+      stronglyConnectedComponents(randomGraph);
+    });
+    console.log(`强连通分量耗时: ${sccTime.toFixed(2)}ms`);
   }
 }

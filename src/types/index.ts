@@ -90,3 +90,53 @@ export interface RBTreeNode<T> extends TreeNode<T> {
   right: RBTreeNode<T> | null;
   parent: RBTreeNode<T> | null;
 }
+
+/**
+ * 图顶点状态（用于DFS）
+ */
+export interface Vertex {
+  id: number;
+  color: Color;
+  distance: number;
+  parent: number | null;
+  discoveryTime?: number; // 发现时间
+  finishTime?: number; // 完成时间
+}
+
+/**
+ * BFS结果接口
+ */
+export interface BFSResult {
+  vertices: Vertex[];
+  distances: number[];
+  parents: (number | null)[];
+  visited: boolean[];
+}
+
+/**
+ * DFS结果接口
+ */
+export interface DFSResult {
+  vertices: Vertex[];
+  parents: (number | null)[];
+  discoveryTimes: number[];
+  finishTimes: number[];
+  time: number;
+}
+
+/**
+ * 拓扑排序结果接口
+ */
+export interface TopologicalSortResult {
+  order: number[];
+  isDAG: boolean; // 是否为有向无环图
+}
+
+/**
+ * 强连通分量结果接口
+ */
+export interface SCCResult {
+  components: number[][];
+  componentMap: number[]; // 每个顶点所属的分量编号
+  count: number; // 强连通分量数量
+}
