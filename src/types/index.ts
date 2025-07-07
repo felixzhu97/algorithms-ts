@@ -140,3 +140,122 @@ export interface SCCResult {
   componentMap: number[]; // 每个顶点所属的分量编号
   count: number; // 强连通分量数量
 }
+
+/**
+ * 最短路径结果接口
+ */
+export interface ShortestPathResult {
+  distances: number[];
+  predecessors: (number | null)[];
+  hasNegativeCycle?: boolean;
+}
+
+/**
+ * 所有点对最短路径结果接口
+ */
+export interface AllPairsShortestPathResult {
+  distances: number[][];
+  predecessors: (number | null)[][];
+}
+
+/**
+ * 最小生成树边
+ */
+export interface MSTEdge extends Edge {
+  from: number;
+  to: number;
+  weight: number;
+}
+
+/**
+ * 最小生成树结果接口
+ */
+export interface MSTResult {
+  edges: MSTEdge[];
+  totalWeight: number;
+  isConnected: boolean;
+}
+
+/**
+ * 并查集接口
+ */
+export interface UnionFind {
+  find(x: number): number;
+  union(x: number, y: number): boolean;
+  connected(x: number, y: number): boolean;
+}
+
+/**
+ * 矩阵链乘法结果接口
+ */
+export interface MatrixChainResult {
+  minOperations: number;
+  optimalParenthesization: string;
+  splitTable: number[][];
+}
+
+/**
+ * 最长公共子序列结果接口
+ */
+export interface LCSResult {
+  length: number;
+  sequence: string;
+  table: number[][];
+}
+
+/**
+ * 背包问题结果接口
+ */
+export interface KnapsackResult {
+  maxValue: number;
+  selectedItems: number[];
+  table: number[][];
+}
+
+/**
+ * 背包物品接口
+ */
+export interface KnapsackItem {
+  weight: number;
+  value: number;
+  name?: string;
+}
+
+/**
+ * 活动接口
+ */
+export interface Activity {
+  id: number;
+  start: number;
+  finish: number;
+  name?: string;
+}
+
+/**
+ * 活动选择结果接口
+ */
+export interface ActivitySelectionResult {
+  selectedActivities: Activity[];
+  maxCount: number;
+}
+
+/**
+ * 霍夫曼编码节点接口
+ */
+export interface HuffmanNode {
+  char?: string;
+  frequency: number;
+  left?: HuffmanNode;
+  right?: HuffmanNode;
+  isLeaf: boolean;
+}
+
+/**
+ * 霍夫曼编码结果接口
+ */
+export interface HuffmanResult {
+  codes: Map<string, string>;
+  tree: HuffmanNode;
+  encodedText: string;
+  compressionRatio: number;
+}

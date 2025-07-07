@@ -35,6 +35,58 @@ import {
   printSCCResult,
   GraphAlgorithms,
 } from "./algorithms/graph/graph-algorithms";
+import {
+  dijkstra,
+  bellmanFord,
+  floydWarshall,
+  spfa,
+  reconstructPath,
+  reconstructAllPairsPath,
+  hasNegativeCycle,
+  printShortestPathResult,
+  printAllPairsShortestPath,
+  ShortestPathAlgorithms,
+  createRandomWeightedGraph,
+} from "./algorithms/graph/shortest-path";
+import {
+  UnionFindSet,
+  kruskal,
+  prim,
+  primSimple,
+  validateMST,
+  countSpanningTrees,
+  printMSTResult,
+  MSTAlgorithms,
+  createRandomWeightedUndirectedGraph,
+} from "./algorithms/graph/minimum-spanning-tree";
+import {
+  matrixChainMultiplication,
+  longestCommonSubsequence,
+  knapsack01,
+  unboundedKnapsack,
+  longestIncreasingSubsequence,
+  longestIncreasingSubsequenceOptimized,
+  editDistance,
+  maxSubarraySum,
+  coinChange,
+  climbStairs,
+  canPartition,
+  DynamicProgrammingAlgorithms,
+} from "./algorithms/dynamic-programming/dynamic-programming";
+import {
+  activitySelection,
+  activitySelectionRecursive,
+  huffmanCoding,
+  huffmanDecoding,
+  fractionalKnapsack,
+  taskScheduling,
+  greedyCoinChange,
+  canJump,
+  canCompleteCircuit,
+  intervalCover,
+  minMeetingRooms,
+  GreedyAlgorithms,
+} from "./algorithms/greedy/greedy-algorithms";
 
 // 数据结构导出
 export { Stack } from "./data-structures/basic/stack";
@@ -122,6 +174,66 @@ export {
   printSCCResult,
   GraphAlgorithms,
 } from "./algorithms/graph/graph-algorithms";
+
+// 最短路径算法
+export {
+  dijkstra,
+  bellmanFord,
+  floydWarshall,
+  spfa,
+  reconstructPath,
+  reconstructAllPairsPath,
+  hasNegativeCycle,
+  printShortestPathResult,
+  printAllPairsShortestPath,
+  ShortestPathAlgorithms,
+  createRandomWeightedGraph,
+} from "./algorithms/graph/shortest-path";
+
+// 最小生成树算法
+export {
+  UnionFindSet,
+  kruskal,
+  prim,
+  primSimple,
+  validateMST,
+  countSpanningTrees,
+  printMSTResult,
+  MSTAlgorithms,
+  createRandomWeightedUndirectedGraph,
+} from "./algorithms/graph/minimum-spanning-tree";
+
+// 动态规划算法
+export {
+  matrixChainMultiplication,
+  longestCommonSubsequence,
+  knapsack01,
+  unboundedKnapsack,
+  longestIncreasingSubsequence,
+  longestIncreasingSubsequenceOptimized,
+  editDistance,
+  maxSubarraySum,
+  coinChange,
+  climbStairs,
+  canPartition,
+  DynamicProgrammingAlgorithms,
+} from "./algorithms/dynamic-programming/dynamic-programming";
+
+// 贪心算法
+export {
+  activitySelection,
+  activitySelectionRecursive,
+  huffmanCoding,
+  huffmanDecoding,
+  fractionalKnapsack,
+  taskScheduling,
+  greedyCoinChange,
+  canJump,
+  canCompleteCircuit,
+  intervalCover,
+  minMeetingRooms,
+  GreedyAlgorithms,
+} from "./algorithms/greedy/greedy-algorithms";
 
 // 类型定义
 export * from "./types";
@@ -447,5 +559,99 @@ export class AlgorithmDemo {
       stronglyConnectedComponents(randomGraph);
     });
     console.log(`强连通分量耗时: ${sccTime.toFixed(2)}ms`);
+  }
+
+  /**
+   * 演示最短路径算法
+   */
+  static demonstrateShortestPathAlgorithms(): void {
+    console.log("\n=== 最短路径算法演示 ===\n");
+    ShortestPathAlgorithms.demonstrateAll();
+  }
+
+  /**
+   * 演示最小生成树算法
+   */
+  static demonstrateMSTAlgorithms(): void {
+    console.log("\n=== 最小生成树算法演示 ===\n");
+    MSTAlgorithms.demonstrateAll();
+  }
+
+  /**
+   * 演示动态规划算法
+   */
+  static demonstrateDynamicProgramming(): void {
+    console.log("\n=== 动态规划算法演示 ===\n");
+    DynamicProgrammingAlgorithms.demonstrateAll();
+  }
+
+  /**
+   * 演示贪心算法
+   */
+  static demonstrateGreedyAlgorithms(): void {
+    console.log("\n=== 贪心算法演示 ===\n");
+    GreedyAlgorithms.demonstrateAll();
+  }
+
+  /**
+   * 综合演示所有算法
+   */
+  static demonstrateAll(): void {
+    console.log("🚀 《算法导论》完整算法演示\n");
+
+    // 基础数据结构
+    this.demonstrateDataStructures();
+
+    // 排序算法比较
+    this.runSortingComparison();
+
+    // 图算法
+    this.demonstrateGraphAlgorithms();
+
+    // 最短路径算法
+    this.demonstrateShortestPathAlgorithms();
+
+    // 最小生成树算法
+    this.demonstrateMSTAlgorithms();
+
+    // 动态规划算法
+    this.demonstrateDynamicProgramming();
+
+    // 贪心算法
+    this.demonstrateGreedyAlgorithms();
+
+    console.log("\n✅ 《算法导论》完整演示完成！");
+    console.log(
+      "🎯 已实现：排序、数据结构、图算法、最短路径、最小生成树、动态规划、贪心算法"
+    );
+  }
+
+  /**
+   * 性能测试套件
+   */
+  static performanceTestSuite(): void {
+    console.log("\n=== 算法性能测试套件 ===\n");
+
+    console.log("--- 排序算法性能测试 ---");
+    this.runSortingComparison(10000);
+
+    console.log("\n--- 图算法性能测试 ---");
+    this.performGraphPerformanceTest();
+
+    console.log("\n--- 最短路径算法性能测试 ---");
+    const testGraph = createRandomWeightedGraph(1000, 5000, 100, false);
+    ShortestPathAlgorithms.compareAlgorithms(testGraph, 0);
+
+    console.log("\n--- 最小生成树算法性能测试 ---");
+    const mstGraph = createRandomWeightedUndirectedGraph(1000, 5000, 100);
+    MSTAlgorithms.compareAlgorithms(mstGraph);
+
+    console.log("\n--- 动态规划算法性能测试 ---");
+    DynamicProgrammingAlgorithms.performanceTest();
+
+    console.log("\n--- 贪心算法性能测试 ---");
+    GreedyAlgorithms.performanceTest();
+
+    console.log("\n✅ 性能测试套件完成！");
   }
 }
