@@ -10,3 +10,11 @@
  * - LRU缓存
  * 等
  */
+
+// 不相交集合（并查集）
+export {
+  DisjointSet,
+  DisjointSetNode,
+  DisjointSetApplications,
+  DisjointSetUtils,
+} from "./disjoint-set";

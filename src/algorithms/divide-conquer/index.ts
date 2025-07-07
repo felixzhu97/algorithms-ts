@@ -15,7 +15,28 @@ export {
   fastPowerRecursive,
   fastPowerIterative,
   fastPowerBinary,
-  Matrix,
   matrixFastPower,
   fibonacciFastPower,
 } from "./fast-power";
+
+// 矩阵运算
+export {
+  Matrix,
+  standardMatrixMultiply,
+  strassenMatrixMultiply,
+  matrixAdd,
+  matrixSubtract,
+  matrixScalarMultiply,
+  luDecomposition,
+  forwardSubstitution,
+  backSubstitution,
+  solveLinearSystem,
+  matrixInverse,
+  determinant,
+  trace,
+  frobeniusNorm,
+  oneNorm,
+  infinityNorm,
+  MatrixUtils,
+  type LUDecomposition,
+} from "./matrix-operations";

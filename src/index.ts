@@ -21,6 +21,25 @@ export {
   RedBlackTree,
   RBTreeNode,
 } from "./data-structures/trees/red-black-tree";
+export { BTree, BTreeNode, BTreeUtils } from "./data-structures/trees/btree";
+export {
+  BinomialHeap,
+  BinomialNode,
+  BinomialHeapUtils,
+} from "./data-structures/trees/binomial-heap";
+export {
+  FibonacciHeap,
+  FibonacciNode,
+  FibonacciHeapUtils,
+} from "./data-structures/trees/fibonacci-heap";
+
+// 高级数据结构
+export {
+  DisjointSet,
+  DisjointSetNode,
+  DisjointSetApplications,
+  DisjointSetUtils,
+} from "./data-structures/advanced";
 
 // ==================== 算法导出 ====================
 
@@ -49,6 +68,14 @@ export {
   findMaximum,
   findMinimum,
   linearSearchWithComparator,
+  // 顺序统计量算法
+  quickSelect,
+  linearSelect,
+  findMedian,
+  findMinMax,
+  findIthAndJthSmallest,
+  findWeightedMedian,
+  OrderStatistics,
 } from "./algorithms/searching";
 
 // 分治算法
@@ -59,9 +86,26 @@ export {
   fastPowerRecursive,
   fastPowerIterative,
   fastPowerBinary,
-  Matrix,
   matrixFastPower,
   fibonacciFastPower,
+  // 矩阵运算
+  Matrix,
+  standardMatrixMultiply,
+  strassenMatrixMultiply,
+  matrixAdd,
+  matrixSubtract,
+  matrixScalarMultiply,
+  luDecomposition,
+  forwardSubstitution,
+  backSubstitution,
+  solveLinearSystem,
+  matrixInverse,
+  determinant,
+  trace,
+  frobeniusNorm,
+  oneNorm,
+  infinityNorm,
+  MatrixUtils,
 } from "./algorithms/divide-conquer";
 
 // 字符串算法
@@ -121,6 +165,17 @@ export {
   prim,
   primSimple,
 } from "./algorithms/graph/minimum-spanning-tree";
+
+// 最大流算法
+export {
+  FlowNetworkMatrix,
+  fordFulkerson,
+  edmondsKarp,
+  pushRelabel,
+  isap,
+  minCostMaxFlow,
+  MaxFlowUtils,
+} from "./algorithms/graph/maximum-flow";
 
 // 动态规划算法
 export {

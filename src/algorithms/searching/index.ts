@@ -21,3 +21,15 @@ export {
   findMinimum,
   linearSearchWithComparator,
 } from "./linear-search";
+
+// 顺序统计量算法
+export {
+  quickSelect,
+  linearSelect,
+  findMedian,
+  findMinMax,
+  findIthAndJthSmallest,
+  findWeightedMedian,
+  OrderStatistics,
+  type SelectResult,
+} from "./order-statistics";
